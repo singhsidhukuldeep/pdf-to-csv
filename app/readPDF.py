@@ -1,6 +1,9 @@
+# handle pdf uploaded
+
 import tabula
 import pandas as pd
 
+# converts pdf to dataframe
 def pdf2df(pdfFileName=""):
     df = tabula.read_pdf(pdfFileName, pages='1')
     df = pd.DataFrame(df)
@@ -55,6 +58,7 @@ def pdf2df(pdfFileName=""):
     # print(alldf.head(25))
     return alldf
 
+# converts pdf to csv
 def pdf2csv(pdfFileName="", csvFileName=""):
     df = pdf2df(pdfFileName)
     df.to_csv(csvFileName)

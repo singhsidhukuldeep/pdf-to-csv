@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Data Parser</title>
+{% endblock %}
+
+
+{% block body %}
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1 class="display-4">Parse pdf data</h1>
+        <p class="lead"> Find source code on <a href="https://github.com/singhsidhukuldeep/pdf-to-csv">Github</a> </p>
+      </div>
+    </div>
+    <div class="jumbotron vertical-center">
+        <div class="container register-form vertical-center">
+            <div class="form">
+                <div class="note">
+                    <p><strong>DATA PARSING</strong></p>
+                </div>
+
+                <div class="form-content">
+                    <form action = "/" method = "POST" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" required name = "qr" id = "qr" placeholder="Query Variable Eg: NPA *" value=""/>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" required name = "yr" id ="yr" placeholder="Query Year Eg: 2015 *" value=""/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class = "form-group">
+                                  <label for = "inputfile">Upload Balance Sheet: </label>
+                                  <input type = "file" required name="inputfile" id = "inputfile" accept=".pdf">
+                               </div>
+                                <div class="form-group">
+                                    <input type="submit" class="btnSubmit" value="SUBMIT"></input>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if found > -1 %}
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1 class="display-4">Results</h1>
+        <p class="lead"> <strong>{{found}}</strong> records found <a href = "{{url_for('download_file')}}"><button type="button" class="btn btn-dark btn-lg float-right">Download CSV</button></a></p> 
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Year</th>
+              <th scope="col">Particular</th>
+              <th scope="col">Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for r in res %}
+            <tr>
+              <td>{{r['year']}}</td>
+              <td>{{r['particular']}}</td>
+              <td>{{r['value']}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% for r in res %}
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+
+{% endblock %}
